@@ -9,7 +9,7 @@ import (
 	"github.com/cilium/ebpf/rlimit"
 )
 
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go xdp_drop xdp_drop.c
+//go:generate go run github.com/cilium/ebpf/cmd/bpf2go xdpdrop xdpdrop.c
 
 func main() {
 	// Allow the current process to lock memory for eBPF resources.
@@ -18,8 +18,8 @@ func main() {
 	}
 
 	// Load the compiled eBPF program
-	var objs xdp_dropObjects
-	if err := loadXdp_dropObjects(&objs, nil); err != nil {
+	var objs xdpdropObjects
+	if err := loadXdpdropObjects(&objs, nil); err != nil {
 		log.Fatalf("Failed to load droppacket objects: %v", err)
 	}
 
