@@ -6,8 +6,7 @@
 #include <linux/in.h>
 #include <linux/byteorder/little_endian.h>
 
-// Blocked destination IP address (e.g., 192.168.0.1)
-//#define BLOCKED_IP 0xC0A80001 // 192.168.0.1 in hex
+// Blocked destination IP address
 #define BLOCKED_IP 0x7f000001 // 127.0.0.1 in hex
 
 

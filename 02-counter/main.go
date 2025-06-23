@@ -26,7 +26,6 @@ func main() {
 	if err := loadCounterObjects(&objs, nil); err != nil {
 		log.Fatal("Loading eBPF objects", err)
 	}
-	// do not forget the defer, why do we need this?
 	defer objs.Close()
 
 	ifname := "eth0"
@@ -36,14 +35,12 @@ func main() {
 	}
 
 	link, err := link.AttachXDP(link.XDPOptions{
-		Program:   objs.CountPackets, // Not sure to get this?!
+		Program:   objs.CountPackets,
 		Interface: iface.Index,
-		//Flags: nil, // What are these flags?
 	})
 	if err != nil {
 		log.Fatalf("Attaching XDP: %s", err)
 	}
-	// Again do not forget close but why?
 	defer link.Close()
 
 	log.Printf("Counting incoming packets on %s...", ifname)

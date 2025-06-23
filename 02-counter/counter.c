@@ -20,9 +20,6 @@ int count_packets() {
         __sync_fetch_and_add(count, 1);
     }
 
-    char msg[] = "Hello, eBPF World!";
-    bpf_trace_printk(msg, sizeof(msg));
-
     return XDP_PASS;
 }
 
