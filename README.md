@@ -39,3 +39,19 @@ bpftool prog tracelog
 - eBPF docs for developers - https://docs.ebpf.io/
 - eBPF and Go with [cilium/ebpf](https://github.com/cilium/ebpf) library - https://ebpf-go.dev/
 - Lab Getting Started with eBPF: https://isovalent.com/labs/ebpf-getting-started/
+
+## Troubleshooting
+
+<details>
+<summary>Operation not permitted</summary>
+
+```shell
+$ go run .
+2025/06/24 10:34:22 Removing memlockfailed to set memlock rlimit: operation not permitted
+```
+
+You need priviledges, run your program with `sudo`.
+```shell
+sudo go run .
+```
+</details>
