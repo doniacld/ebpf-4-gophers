@@ -19,7 +19,7 @@ limactl shell ebpf
 
 It includes all the demo realised during the talk.
 - Tracing example: [Open file tracer](./openfile)
-- Monitoring example: [Packet counter](./counter)
+- Monitoring examples: [Packet counter](./02-00-counter) and [Packet counter with source IPs](./02-01-counter-ips)
 - Networking/Security example: [Drop packets](./dropper)
 
 ## View eBPF trace output
