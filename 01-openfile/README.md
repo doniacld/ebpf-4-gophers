@@ -1,11 +1,11 @@
 # 📁 eBPF Tracepoint Example: Trace File Open Events
 
-This example demonstrates how to write an eBPF program in C and load it using Go and the cilium/ebpf library. The 
+This example demonstrates how to write an eBPF program in C and load it using Go and the [`cilium/ebpf`](https://github.com/cilium/ebpf) library. The 
 program attaches to the `sys_enter_openat` tracepoint and logs a message every time a file is opened on the system.
 
 ## 📦 What You’ll See
 
-![demo.gif](demo.gif)
+![demo.gif](assets/demo.gif)
 *created with [vhs](https://github.com/charmbracelet/vhs) by Charm CLI*
 
 Every time a file is opened (e.g., via cat /etc/hosts), a log line like the following appears:
@@ -29,8 +29,9 @@ go generate
 This runs `bpf2go` to compile [`openfile.c`](./openfile.c) and generate Go bindings.
 
 ### 3. Run the Program
-```
-sudo go run main.go
+
+```shell
+sudo go run .
 ```
 
 You’ll see something like:
@@ -41,7 +42,7 @@ Reading trace_pipe output...
 
 ### 4. Trigger File Opens
 
-Open a new terminal and run:
+Open a new terminal and run for example:
 ```shell
 cat /etc/hosts
 ls /tmp
