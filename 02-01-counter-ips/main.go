@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 	"os"
@@ -14,9 +15,11 @@ import (
 //go:generate go run github.com/cilium/ebpf/cmd/bpf2go counter counter.c
 
 func main() {
-	// remove resource limits for kernels <5.11
-	// ? why do we need to remove a limit, what is the limit
-	// and what is my kernel version?
+	// Add CLI flag for interface name
+	ifname := flag.String("iface", "eth0", "Name of the interface to attach XDP to")
+	flag.Parse()
+
+	// Remove memlock rlimit so the BPF program can be loaded (especially on kernels < 5.11)
 	err := rlimit.RemoveMemlock()
 	if err != nil {
 		log.Fatal("Removing memlock", err)
@@ -28,14 +31,13 @@ func main() {
 	}
 	defer objs.Close()
 
-	ifname := "eth0"
-	iface, err := net.InterfaceByName(ifname)
+	iface, err := net.InterfaceByName(*ifname)
 	if err != nil {
-		log.Fatalf("Getting interface %s: %s", ifname, err)
+		log.Fatalf("Getting interface %s: %s", *ifname, err)
 	}
 
 	xdp, err := link.AttachXDP(link.XDPOptions{
-		Program:   objs.CountPackets,
+		Program:   objs.CountPacketsBySrc,
 		Interface: iface.Index,
 	})
 	if err != nil {
@@ -43,25 +45,39 @@ func main() {
 	}
 	defer xdp.Close()
 
-	log.Printf("Counting incoming packets on %s...", ifname)
+	log.Printf("Counting incoming packets on %s...", *ifname)
 
 	// Periodically fetch the packet counter from PktCount,
 	// exit the program when interrupted.
 	tick := time.Tick(time.Second)
 	stop := make(chan os.Signal, 5)
 	signal.Notify(stop, os.Interrupt)
+
 	for {
 		select {
 		case <-tick:
-			var count uint64
-			err := objs.PktCount.Lookup(uint32(0), &count)
-			if err != nil {
-				log.Fatal("Map lookup:", err)
+			iter := objs.PktCount.Iterate()
+			var key uint32
+			var value uint64 // src IP and packet count
+
+			log.Println("📥 Packet count by source IP:")
+			for iter.Next(&key, &value) {
+				ip := net.IPv4(
+					byte(key>>24),
+					byte(key>>16),
+					byte(key>>8),
+					byte(key),
+				)
+				log.Printf("- %s: %d packets", ip.String(), value)
 			}
-			log.Printf("Received %d packets", count)
+			if err := iter.Err(); err != nil {
+				log.Printf("Map iteration error: %s", err)
+			}
+
 		case <-stop:
-			log.Print("Received signal, exiting..")
+			log.Print("Exiting...")
 			return
 		}
 	}
+
 }
