@@ -71,5 +71,5 @@ func main() {
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 	<-sig
 
-	log.Println("Exiting...")
+	log.Print("\nReceived signal, exiting..")
 }
