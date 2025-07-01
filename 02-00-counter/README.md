@@ -11,7 +11,7 @@ It attaches to a network interface via `XDP` and counts the number of incoming p
 
 ## 📦 What You’ll See
 
-![demo.gif](demo.gif)
+![demo.gif](assets/demo.gif)
 *created with [vhs](https://github.com/charmbracelet/vhs) by Charm CLI*
 
 Every time a packet is sent (e.g., via `ping` command), a log line like the following appears:

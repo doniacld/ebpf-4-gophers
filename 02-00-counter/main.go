@@ -11,7 +11,8 @@ import (
 	"github.com/cilium/ebpf/rlimit"
 )
 
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go counter counter.c
+////go:generate go run github.com/cilium/ebpf/cmd/bpf2go counter counter.c
+//go:generate go run github.com/cilium/ebpf/cmd/bpf2go -cc clang -cflags "-I/usr/src/linux-headers/usr/include" counter counter.c
 
 func main() {
 	// remove resource limits for kernels <5.11
@@ -60,7 +61,7 @@ func main() {
 			}
 			log.Printf("Received %d packets", count)
 		case <-stop:
-			log.Print("Received signal, exiting..")
+			log.Print("\nReceived signal, exiting..")
 			return
 		}
 	}
