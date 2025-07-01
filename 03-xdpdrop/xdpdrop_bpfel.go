@@ -61,6 +61,7 @@ type xdpdropProgramSpecs struct {
 //
 // It can be passed ebpf.CollectionSpec.Assign.
 type xdpdropMapSpecs struct {
+	BlockedIps *ebpf.MapSpec `ebpf:"blocked_ips"`
 }
 
 // xdpdropVariableSpecs contains global variables before they are loaded into the kernel.
@@ -89,10 +90,13 @@ func (o *xdpdropObjects) Close() error {
 //
 // It can be passed to loadXdpdropObjects or ebpf.CollectionSpec.LoadAndAssign.
 type xdpdropMaps struct {
+	BlockedIps *ebpf.Map `ebpf:"blocked_ips"`
 }
 
 func (m *xdpdropMaps) Close() error {
-	return _XdpdropClose()
+	return _XdpdropClose(
+		m.BlockedIps,
+	)
 }
 
 // xdpdropVariables contains all global variables after they have been loaded into the kernel.
