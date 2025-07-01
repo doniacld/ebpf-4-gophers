@@ -15,7 +15,7 @@ Perfect for learning eBPF/XDP or debugging interface-level packet flow.
 
 ## 📦 What You’ll See
 
-![demo.gif](demo.gif)
+![demo.gif](assets/demo.gif)
 <sub>*created with [vhs](https://github.com/charmbracelet/vhs) by Charm CLI*</sub>
 
 Whenever you trigger packets (e.g. with `ping`), you’ll see logs like:

@@ -12,7 +12,8 @@ import (
 	"github.com/cilium/ebpf/rlimit"
 )
 
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go counter counter.c
+////go:generate go run github.com/cilium/ebpf/cmd/bpf2go counter counter.c
+//go:generate go run github.com/cilium/ebpf/cmd/bpf2go -cc clang -cflags "-I/usr/src/linux-headers/usr/include" counter counter.c
 
 func main() {
 	// Add CLI flag for interface name
@@ -75,7 +76,7 @@ func main() {
 			}
 
 		case <-stop:
-			log.Print("Exiting...")
+			log.Print("\nReceived signal, exiting..")
 			return
 		}
 	}
