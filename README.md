@@ -11,16 +11,16 @@ All these examples have been tested on an Ubuntu 22.04 distribution using a 5.15
 
 ## Lima VM
 ```shell
-limactl start lima.yaml
-limactl shell ebpf
+limactl start lima.yaml --name=learn-ebpf
+limactl shell learn-ebpf
 ```
 
 ## Examples
 
 It includes all the demo realised during the talk.
-- Tracing example: [Open file tracer](./openfile)
+- Tracing example: [Open file tracer](./01-openfile)
 - Monitoring examples: [Packet counter](./02-00-counter) and [Packet counter with source IPs](./02-01-counter-ips)
-- Networking/Security example: [Drop packets](./dropper)
+- Networking/Security example: [Drop packets](./03-xdpdrop)
 
 ## View eBPF trace output
 
@@ -39,6 +39,7 @@ bpftool prog tracelog
 - eBPF docs for developers - https://docs.ebpf.io/
 - eBPF and Go with [cilium/ebpf](https://github.com/cilium/ebpf) library - https://ebpf-go.dev/
 - Lab Getting Started with eBPF: https://isovalent.com/labs/ebpf-getting-started/
+- [Learning eBPF Book](https://isovalent.com/books/learning-ebpf/), O'Reilly by Liz Rice
 
 ## Troubleshooting
 
