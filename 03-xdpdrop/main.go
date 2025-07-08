@@ -12,6 +12,7 @@ import (
 	"github.com/cilium/ebpf/rlimit"
 )
 
+// Temporary change to fix local issues in Lima VM.
 ////go:generate go run github.com/cilium/ebpf/cmd/bpf2go xdpdrop xdpdrop.c
 //go:generate go run github.com/cilium/ebpf/cmd/bpf2go -cc clang -cflags "-I/usr/src/linux-headers/usr/include" xdpdrop xdpdrop.c
 

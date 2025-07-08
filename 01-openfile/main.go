@@ -13,7 +13,9 @@ import (
 	"github.com/cilium/ebpf/rlimit"
 )
 
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go openfile openfile.c
+// Temporary change to fix local issues in Lima VM.
+////go:generate go run github.com/cilium/ebpf/cmd/bpf2go openfile openfile.c
+//go:generate go run github.com/cilium/ebpf/cmd/bpf2go -cc clang -cflags "-I/usr/src/linux-headers/usr/include" openfile openfile.c
 
 func main() {
 	// Allow the current process to lock memory for eBPF resources.
