@@ -1,7 +1,9 @@
 # Learn eBPF for Gophers 
 
-This repo accompanies my talk to FOSDEM 2025: "An intro to eBPF with Go:
-The foundation of modern Kubernetes". You can watch the talk here [TBC].
+This repo accompanies my talk "An intro to eBPF with Go: The foundation of modern Kubernetes" ([slides](https://speakerdeck.com/doniacld/an-intro-to-ebpf-with-go-the-foundation-of-modern-kubernetes-networking)), you can watch the replays:
+* [FOSDEM 2025](https://cuddly.tube/w/p/2H3BJMkJZEJRUSUGkAaYGw?playlistPosition=1)
+* RivieraDev 2025 (Coming)
+
 
 ## Run the example code
 
